@@ -1,0 +1,277 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --neon-green: #00FF9C;
+    --neon-pink: #FF2D78;
+    --neon-blue: #2D9CDB;
+    --bg-primary: #060B18;
+    --bg-secondary: #0D1525;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: #E2E8F0;
+    font-family: 'Outfit', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  ::selection {
+    background: rgba(0, 255, 156, 0.25);
+    color: #00FF9C;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--neon-green);
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .glass-card:hover {
+    border-color: rgba(0, 255, 156, 0.3);
+    background-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 30px rgba(0, 255, 156, 0.08), 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .neon-text {
+    color: var(--neon-green);
+    text-shadow: 0 0 20px rgba(0, 255, 156, 0.5);
+  }
+
+  .neon-border {
+    border: 1px solid var(--neon-green);
+    box-shadow: 0 0 20px rgba(0, 255, 156, 0.2), inset 0 0 20px rgba(0, 255, 156, 0.05);
+  }
+
+  .section-title {
+    @apply font-mono text-3xl md:text-4xl font-bold;
+  }
+
+  .btn-primary {
+    @apply font-mono text-sm px-6 py-3 rounded-lg border;
+    color: #00FF9C;
+    border-color: rgba(0, 255, 156, 0.5);
+    background: rgba(0, 255, 156, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0, 255, 156, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .btn-primary:hover::before { opacity: 1; }
+  .btn-primary:hover {
+    border-color: rgba(0, 255, 156, 0.8);
+    box-shadow: 0 0 20px rgba(0, 255, 156, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .skill-tag {
+    @apply font-mono text-xs px-3 py-1.5 rounded-md border;
+    border-color: rgba(45, 156, 219, 0.3);
+    background: rgba(45, 156, 219, 0.08);
+    color: #2D9CDB;
+    transition: all 0.2s ease;
+  }
+
+  .skill-tag:hover {
+    border-color: rgba(45, 156, 219, 0.7);
+    background: rgba(45, 156, 219, 0.15);
+    box-shadow: 0 0 10px rgba(45, 156, 219, 0.3);
+    transform: translateY(-2px);
+  }
+}
+
+/* Custom Cursor */
+.custom-cursor {
+  width: 12px;
+  height: 12px;
+  background: var(--neon-green);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease;
+  box-shadow: 0 0 10px var(--neon-green), 0 0 20px rgba(0, 255, 156, 0.4);
+  mix-blend-mode: screen;
+}
+
+.custom-cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(0, 255, 156, 0.5);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: all 0.15s ease;
+}
+
+.custom-cursor.cursor-hover {
+  width: 20px;
+  height: 20px;
+}
+
+/* Noise/grain overlay */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* Scanline effect */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+}
+
+/* Glow orbs */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+/* Terminal prompt styles */
+.terminal-prompt::before {
+  content: '> ';
+  color: var(--neon-green);
+}
+
+/* Typing cursor */
+.type-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--neon-green);
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Nav active indicator */
+.nav-active {
+  color: var(--neon-green);
+}
+
+/* Timeline connector */
+.timeline-line {
+  background: linear-gradient(to bottom, var(--neon-green), transparent);
+}
+
+/* Badge glow */
+.badge-glow {
+  box-shadow: 0 0 12px rgba(0, 255, 156, 0.4);
+}
+
+/* Section gradient divider */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 156, 0.3), transparent);
+}
+
+/* Progress bar animated */
+@keyframes fillBar {
+  from { width: 0%; }
+  to { width: var(--skill-width); }
+}
+
+.skill-bar-fill {
+  animation: fillBar 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Floating cards */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-8px) rotate(0.5deg); }
+  66% { transform: translateY(4px) rotate(-0.5deg); }
+}
+
+.float-card {
+  animation: float 8s ease-in-out infinite;
+}
+
+/* Holographic shimmer on hover */
+.holo-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.holo-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 25%,
+    rgba(0, 255, 156, 0.04) 50%,
+    transparent 75%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.holo-card:hover::after {
+  transform: translateX(100%);
+}
