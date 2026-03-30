@@ -107,9 +107,7 @@ export default function Hero() {
             >
               <span className="text-white">Rahul</span>
               <br />
-              <span className="text-white">Kumar </span>
-              <span
-                className="text-transparent bg-clip-text"
+               className="text-transparent bg-clip-text"
                 style={{
                   backgroundImage:
                     "linear-gradient(135deg, #00FF9C 0%, #2D9CDB 50%, #9B59FF 100%)",
