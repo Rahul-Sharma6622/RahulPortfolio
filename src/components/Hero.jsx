@@ -107,6 +107,7 @@ export default function Hero() {
             >
               <span className="text-white">Rahul</span>
               <br />
+              <span className="text-white">Kumar </span>
               <span
                 className="text-transparent bg-clip-text"
                 style={{
